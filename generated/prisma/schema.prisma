@@ -8,6 +8,37 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id       Int    @id @default(autoincrement())
+  username String @unique
+  email    String @unique
+  password String
+
+  // Profile fields
+  fullName  String?
+  avatarUrl String?
+  bio       String?
+  website   String?
+
+  // Social media links
+  instagram String?
+  twitter   String?
+  facebook  String?
+
+  // Location
+  city        String?
+  country     String?
+  coordinates Unsupported("geography(Point, 4326)")?
+
+  // Engagement stats
+  storyCount   Int @default(0)
+  likeCount    Int @default(0)
+  commentCount Int @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model Place {
   id          Int                                   @id @default(autoincrement())
   name        String
